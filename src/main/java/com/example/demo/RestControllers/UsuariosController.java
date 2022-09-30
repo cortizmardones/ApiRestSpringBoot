@@ -1,6 +1,9 @@
 package com.example.demo.RestControllers;
 
 import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,11 +12,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.entity.Cliente;
+import com.example.demo.model.entity.ClienteDAO;
+
 @RestController
 @RequestMapping("/usuarios")
-public class indexController {
+public class UsuariosController {
 	
 	private HashMap<String,String> listaUsuarios = new HashMap<String,String>();
+	
+	@Autowired
+	private ClienteDAO clienteDAO;
 	
 	@GetMapping("/listar")
 	public HashMap<String,String> listar() {
@@ -63,7 +72,5 @@ public class indexController {
 		}
 
 	}
-	
-	
-
+		
 }
