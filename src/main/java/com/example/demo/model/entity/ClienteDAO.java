@@ -20,4 +20,16 @@ public class ClienteDAO implements IClienteDAO {
 		return entityManager.createQuery("from Cliente").getResultList();
 	}
 
+	@Override
+	@Transactional
+	public void Save(Cliente cliente) {
+		entityManager.persist(cliente);
+	}
+	
+	@Override
+	@Transactional
+	public Cliente findOne(int id) {
+		return entityManager.find(Cliente.class, id);
+	}
+	
 }
