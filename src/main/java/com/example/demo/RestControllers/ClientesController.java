@@ -1,8 +1,8 @@
 package com.example.demo.RestControllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,40 +26,40 @@ public class ClientesController {
 	
 	//CREATE
 	@PostMapping("/createClient/{nombre}/{apellido}/{profesion}/{edad}")
-	public String createClient(@PathVariable String nombre, @PathVariable String apellido, @PathVariable String profesion, @PathVariable String edad) {
+	public ResponseEntity<?> createClient(@PathVariable String nombre, @PathVariable String apellido, @PathVariable String profesion, @PathVariable String edad) {
 		cliente.setNombre(nombre);
 		cliente.setApellido(apellido);
 		cliente.setProfesion(profesion);
 		cliente.setEdad(Integer.parseInt(edad));
-		clienteDAO.Save(cliente);
-		return "Usuario registrado exitosamente";
+		clienteDAO.persist(cliente);
+		return ResponseEntity.status(HttpStatus.OK).body("Usuario registrado exitosamente");
 	}
 
 	//READ
 	@GetMapping("/readAllClients")
-	public List<Cliente> readAllClients() {
+	public ResponseEntity<?> readAllClients() {
 		return clienteDAO.findAll();
 	}
 
 	@GetMapping("/readOneClient/{id}")
-	public Cliente readOneClient(@PathVariable String id) {
-		return clienteDAO.findOne(Integer.parseInt(id));
+	public ResponseEntity<?> readOneClient(@PathVariable String id) {
+		return clienteDAO.find(Integer.parseInt(id));
 	}
 	
 	//UPDATE
 	@PutMapping("/updateClient/{id}/{nombre}/{apellido}/{profesion}/{edad}")
-	public String updateClient(@PathVariable String id, @PathVariable String nombre, @PathVariable String apellido, @PathVariable String profesion, @PathVariable String edad) {
+	public ResponseEntity<?> updateClient(@PathVariable String id, @PathVariable String nombre, @PathVariable String apellido, @PathVariable String profesion, @PathVariable String edad) {
 		cliente.setId(Integer.parseInt(id));
 		cliente.setNombre(nombre);
 		cliente.setApellido(apellido);
 		cliente.setProfesion(profesion);
 		cliente.setEdad(Integer.parseInt(edad));
-		return clienteDAO.Update(cliente);
+		return clienteDAO.merge(cliente);
 	}
 	
 	//DELETE
 	@DeleteMapping("/deleteClient/{id}")
-	public String deleteClient(@PathVariable String id) {
+	public ResponseEntity<?> deleteClient(@PathVariable String id) {
 		return clienteDAO.Delete(Integer.parseInt(id));
 	}
 

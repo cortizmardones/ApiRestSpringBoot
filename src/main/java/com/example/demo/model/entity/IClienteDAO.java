@@ -1,20 +1,20 @@
 package com.example.demo.model.entity;
 
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface IClienteDAO {
 
 	//CREATE
-	public void Save(Cliente cliente);
+	public void persist(Cliente cliente);
 	
 	//READ
-	public List<Cliente> findAll();
-	public Cliente findOne(int id);
+	public ResponseEntity<?> findAll();
+	public ResponseEntity<?> find(int id);
 	
 	//UPDATE
-	public String Update(Cliente cliente);
+	public ResponseEntity<?> merge(Cliente cliente);
 	
 	//DELETE
-	public String Delete(int id);
+	public ResponseEntity<?> Delete(int id);
 
 }
